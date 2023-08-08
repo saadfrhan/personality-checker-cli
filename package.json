@@ -1,14 +1,6 @@
 {
-  "name": "nodejs-typescript-cli-template",
-  "version": "0.1.0",
-  "description": "Node.js TypeScript CLI Template for building command-line applications.",
-  "keywords": [
-    "Node.js",
-    "TypeScript",
-    "CLI",
-    "Inquirer"
-  ],
-  "author": "Saad Shamsi",
+  "name": "personality-checker-cli",
+  "version": "0.0.0",
   "main": "src/index.js",
   "type": "module",
   "module": "dist/index.mjs",
