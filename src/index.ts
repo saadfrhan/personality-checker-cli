@@ -1,12 +1,75 @@
 #!/usr/bin/env node
 
-import { input } from "@inquirer/prompts";
-import { beautifyName } from "./utils/beautifyName.js";
-import { inputQuestions } from "./questions/input.js";
+import {confirm, input, select} from '@inquirer/prompts'
 
-const name = await input(inputQuestions[0]);
+class Person {
+	private _personality: string;
 
-console.log(`Hello, ${beautifyName(name)}!`);
+	constructor() {
+		this._personality = "Mystery";
+	}
 
-process.exit();
+	get personality() {
+		return this._personality;
+	}
 
+	set personality(value: string) {
+		this._personality = value;
+	}
+
+	askQuestion(answer: number) {
+		if (answer === 1) {
+			this.personality = "introvert";
+		} else if (answer === 2) {
+			this.personality = "extrovert";
+		}
+	}
+}
+
+class Student extends Person {
+	private _name: string;
+
+	constructor() {
+		super();
+		this._name = "";
+	}
+
+	get name() {
+		return this._name;
+	}
+
+	set name(value: string) {
+		this._name = value;
+	}
+}
+
+class Main {
+	async ask() {
+		const choice = await select({
+			message: "Do you feel more energized and rejuvenated after spending time alone or after socializing with a group of people?",
+			choices: [
+				{name: "Alone", value: 1},
+				{name: "Socializing", value: 2}
+			]
+		});
+		if (choice) {
+			const person = new Person();
+			person.askQuestion(choice);
+			const name = await input({
+				message: "What is your name?",
+			});
+			const student = new Student();
+			student.name = name;
+			console.log(`Hello ${student.name}! your personality is ${student.personality}!`);
+			const again = await confirm({
+				message: "Would you like to try again?",
+			});
+			if (again) {
+				this.ask();
+			}
+		}
+	}
+}
+
+const main = new Main();
+main.ask();
