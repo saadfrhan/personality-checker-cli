@@ -23,7 +23,7 @@ git clone https://github.com/saadfrhan/oop-cli
 cd oop-cli
 pnpm i
 pnpm build
-pnpm link --global
+npm link
 oop-cli
 ```
 
